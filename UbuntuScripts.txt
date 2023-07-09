@@ -1,0 +1,52 @@
+1.
+cat > "Домашние животные" << EOF
+Собаки
+Кошки
+Хомяки
+EOF
+
+cat > "Вьючные животными" << EOF
+Лошади
+Верблюды
+Ослы
+EOF
+
+cat "Домашние животные" "Вьючные животными" > "Друзья человека"
+cat "Друзья человека"
+mv "Друзья человека" "Друзья"
+
+2.
+mkdir Directory
+mv "Друзья" Directory/
+
+3.
+sudo apt update
+sudo apt install mysql-server
+mysql --version
+sudo mysql_secure_installation
+mysql -u root -p
+systemctl status mysql
+sudo systemctl stop mysql
+sudo apt purge mysql-server mysql-client mysql-common mysql-server-core-* mysql-client-core-*
+sudo deluser --remove-home mysql
+sudo delgroup mysql
+sudo rm -rf /etc/mysql /var/lib/mysql /var/log/mysql
+sudo apt-get autoremove
+sudo apt-get autoclean
+
+4. Почтовый сервер
+wget http://archive.ubuntu.com/ubuntu/pool/main/p/postfix/postfix_3.6.4-1ubuntu1_amd64.deb
+la -ls
+sudo dpkg -i postfix_3.6.4-1ubuntu1_amd64.deb
+cd /etc/postfix/
+sudo touch virtual
+sudo mkdir private
+sudo touch canonical sender_relay sasl_passwd
+sudo nano /etc/postfix/virtual
+sudo nano /etc/postfix/main.cf
+cut -d: -f1 /etc/passwd
+sudo postmap /etc/postfix/virtual
+sudo postmap /etc/postfix/private/*
+sudo /etc/init.d/postfix restart
+iptables -A INPUT -p tcp --dport 25 -j ACCEPT
+sudo dpkg -r postfix
